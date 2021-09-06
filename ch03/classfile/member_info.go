@@ -33,9 +33,17 @@ func readMember(reader *ClassReader, cp ConstantPool) *MemberInfo {
 	}
 }
 
+/*
+从常量池找字段或方法名
+*/
+
 func (self *MemberInfo) Name() string {
 	return self.cp.getUtf8(self.nameIndex)
 }
+
+/*
+从常量池找字段或方法描述符
+*/
 
 func (self *MemberInfo) Descriptor() string {
 	return self.cp.getUtf8(self.descriptorIndex)
