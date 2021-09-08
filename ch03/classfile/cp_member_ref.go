@@ -23,3 +23,5 @@ func (self *ConstantMemberrefInfo) NameAndDescriptor() (string, string) {
 type ConstantFieldrefInfo struct{ ConstantMemberrefInfo }
 type ConstantMethodrefInfo struct{ ConstantMemberrefInfo }
 type ConstantInterfaceMethodrefInfo struct{ ConstantMemberrefInfo }
+
+1
