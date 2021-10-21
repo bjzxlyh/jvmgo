@@ -1,10 +1,8 @@
 package classfile
 
 type ConstantClassInfo struct {
-	cp
-	ConstantPool
-	nameIndex
-	uint16
+	cp        ConstantPool
+	nameIndex uint16
 }
 
 func (self *ConstantClassInfo) readInfo(reader *ClassReader) {

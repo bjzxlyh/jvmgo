@@ -1,5 +1,8 @@
 package classfile
 
+import "fmt"
+import "unicode/utf16"
+
 type ConstantUtf8Info struct {
 	str string
 }

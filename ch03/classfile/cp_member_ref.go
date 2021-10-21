@@ -1,12 +1,9 @@
 package classfile
 
 type ConstantMemberrefInfo struct {
-	cp
-	ConstantPool
-	classIndex
-	uint16
-	nameAndTypeIndex
-	uint16
+	cp               ConstantPool
+	classIndex       uint16
+	nameAndTypeIndex uint16
 }
 
 func (self *ConstantMemberrefInfo) readInfo(reader *ClassReader) {
@@ -23,4 +20,3 @@ func (self *ConstantMemberrefInfo) NameAndDescriptor() (string, string) {
 type ConstantFieldrefInfo struct{ ConstantMemberrefInfo }
 type ConstantMethodrefInfo struct{ ConstantMemberrefInfo }
 type ConstantInterfaceMethodrefInfo struct{ ConstantMemberrefInfo }
-s
