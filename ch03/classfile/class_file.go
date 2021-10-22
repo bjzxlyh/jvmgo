@@ -41,7 +41,7 @@ func (self *ClassFile) read(reader *ClassReader) {
 	self.accessFlags = reader.readUint16()
 	self.thisClass = reader.readUint16()
 	self.superClass = reader.readUint16()
-	self.interfaces = reader.readerUint16s()
+	self.interfaces = reader.readUint16s()
 	self.fields = readMembers(reader, self.constantPool)
 	self.methods = readMembers(reader, self.constantPool)
 	self.attributes = readAttributes(reader, self.constantPool)
@@ -90,7 +90,7 @@ func (self *ClassFile) InterfaceNames() []string {
 如果加载的class不符合要求格式，抛出异常
 */
 func (self *ClassFile) readAndCheckMagic(reader *ClassReader) {
-	magic := reader.readerUint32()
+	magic := reader.readUint32()
 	if magic != 0xCAFEBABE {
 		panic("java.lang.ClassFormatErroe:magic!")
 	}
