@@ -25,7 +25,7 @@ func (self *PUT_FIELD) Execute(frame *rtda.Frame) {
 			panic("java.lang.IllegalAccessError")
 		}
 	}
-	descriptor := field.Descritor()
+	descriptor := field.Descriptor()
 	slotId := field.SlotId()
 	stack := frame.OperandStack()
 	switch descriptor[0] {

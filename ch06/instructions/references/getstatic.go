@@ -19,7 +19,7 @@ func (self *GET_STATIC) Execute(frame *rtda.Frame) {
 		panic("java.lang.IncompatibleClassChangeError")
 	}
 	descriptor := field.Descriptor()
-	slotId := field.SlodId()
+	slotId := field.SlotId()
 	slots := class.StaticVars()
 	stack := frame.OperandStack()
 	switch descriptor[0] {

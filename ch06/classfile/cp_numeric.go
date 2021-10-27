@@ -36,3 +36,15 @@ func (self *ConstantDoubleInfo) readInfo(reader *ClassReader) {
 	bytes := reader.readUint64()
 	self.val = math.Float64frombits(bytes)
 }
+func (self *ConstantIntegerInfo) Value() int32 {
+	return self.val
+}
+func (self *ConstantFloatInfo) Value() float32 {
+	return self.val
+}
+func (self *ConstantLongInfo) Value() int64 {
+	return self.val
+}
+func (self *ConstantDoubleInfo) Value() float64 {
+	return self.val
+}
