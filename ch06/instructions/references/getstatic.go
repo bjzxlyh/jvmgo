@@ -1,7 +1,7 @@
 package references
 
 import (
-	"jvmgo/ch05/instructions/base"
+	"jvmgo/ch06/instructions/base"
 	"jvmgo/ch06/rtda"
 	"jvmgo/ch06/rtda/heap"
 )
