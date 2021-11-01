@@ -17,10 +17,11 @@ func (self *INVOKE_VIRTUAL) Execute(frame *rtda.Frame) {
 	if methodRef.Name() == "println" {
 		stack := frame.OperandStack()
 		switch methodRef.Descriptor() {
-		case "(Z)V":fmt.Printf("%v\n",stack.PopInt() != 0)
+		case "(Z)V":
+			fmt.Printf("%v\n", stack.PopInt() != 0)
 		case "(C)V":
+			z
 
-/
 		}
 	}
 }
