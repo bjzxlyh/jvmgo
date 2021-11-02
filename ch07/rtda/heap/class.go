@@ -1,7 +1,7 @@
 package heap
 
 import (
-	"jvmgo/ch06/classfile"
+	"jvmgo/ch07/classfile"
 	"strings"
 )
 

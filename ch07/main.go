@@ -7,8 +7,8 @@ import (
 	"strings"
 )
 
-import _ "jvmgo/ch06/classfile"
-import _ "jvmgo/ch06/classpath"
+import _ "jvmgo/ch07/classfile"
+import _ "jvmgo/ch07/classpath"
 
 func main() {
 	cmd := parseCmd()
