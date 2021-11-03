@@ -7,7 +7,7 @@ import (
 
 type Class struct {
 	accessFlags       uint16
-	name              string
+	name              string // thisClassName
 	superClassName    string
 	interfaceNames    []string
 	constantPool      *ConstantPool
@@ -31,9 +31,6 @@ func newClass(cf *classfile.ClassFile) *Class {
 	class.constantPool = newConstantPool(class, cf.ConstantPool())
 	class.fields = newFields(class, cf.Fields())
 	return class
-}
-func (self *Class) SuperClass() *Class {
-	return self.superClass
 }
 func (self *Class) IsPublic() bool {
 	return 0 != self.accessFlags&ACC_PUBLIC
@@ -59,30 +56,52 @@ func (self *Class) IsAnnotation() bool {
 func (self *Class) IsEnum() bool {
 	return 0 != self.accessFlags&ACC_ENUM
 }
-func (self *Class) isAccessibleTo(other *Class) bool {
-	return self.IsPublic() || self.getPackageName() == other.getPackageName()
+
+// getters
+func (self *Class) Name() string {
+	return self.name
 }
-func (self *Class) getPackageName() string {
+func (self *Class) ConstantPool() *ConstantPool {
+	return self.constantPool
+}
+func (self *Class) Fields() []*Field {
+	return self.fields
+}
+func (self *Class) Methods() []*Method {
+	return self.methods
+}
+func (self *Class) SuperClass() *Class {
+	return self.superClass
+}
+func (self *Class) StaticVars() Slots {
+	return self.staticVars
+}
+func (self *Class) InitStarted() bool {
+	return self.initStarted
+}
+
+func (self *Class) StartInit() {
+	self.initStarted = true
+}
+
+// jvms 5.4.4
+func (self *Class) isAccessibleTo(other *Class) bool {
+	return self.IsPublic() ||
+		self.GetPackageName() == other.GetPackageName()
+}
+
+func (self *Class) GetPackageName() string {
 	if i := strings.LastIndex(self.name, "/"); i >= 0 {
 		return self.name[:i]
 	}
 	return ""
 }
 
-func (self *Class) NewObject() *Object {
-	return newObject(self)
-}
-func (self *Class) ConstantPool() *ConstantPool {
-	return self.constantPool
-}
-func (self *Class) StaticVars() Slots {
-	return self.staticVars
-}
 func (self *Class) GetMainMethod() *Method {
 	return self.getStaticMethod("main", "([Ljava/lang/String;)V")
 }
-func (self *Class) InitStarted() bool {
-	return self.initStarted
+func (self *Class) GetClinitMethod() *Method {
+	return self.getStaticMethod("<clinit>", "()V")
 }
 
 func (self *Class) getStaticMethod(name, descriptor string) *Method {
@@ -96,12 +115,7 @@ func (self *Class) getStaticMethod(name, descriptor string) *Method {
 	}
 	return nil
 }
-func (self *Class) GetPackageName() string {
-	if i := strings.LastIndex(self.name, "/"); i >= 0 {
-		return self.name[:i]
-	}
-	return ""
-}
-func (self *Class) Name() string {
-	return self.name
+
+func (self *Class) NewObject() *Object {
+	return newObject(self)
 }
