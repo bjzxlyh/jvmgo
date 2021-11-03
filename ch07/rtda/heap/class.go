@@ -19,6 +19,7 @@ type Class struct {
 	instanceSlotCount uint
 	staticSlotCount   uint
 	staticVars        Slots
+	initStarted       bool
 }
 
 func newClass(cf *classfile.ClassFile) *Class {
@@ -31,7 +32,9 @@ func newClass(cf *classfile.ClassFile) *Class {
 	class.fields = newFields(class, cf.Fields())
 	return class
 }
-
+func (self *Class) SuperClass() *Class {
+	return self.superClass
+}
 func (self *Class) IsPublic() bool {
 	return 0 != self.accessFlags&ACC_PUBLIC
 }
@@ -78,6 +81,9 @@ func (self *Class) StaticVars() Slots {
 func (self *Class) GetMainMethod() *Method {
 	return self.getStaticMethod("main", "([Ljava/lang/String;)V")
 }
+func (self *Class) InitStarted() bool {
+	return self.initStarted
+}
 
 func (self *Class) getStaticMethod(name, descriptor string) *Method {
 	for _, method := range self.methods {
@@ -89,4 +95,10 @@ func (self *Class) getStaticMethod(name, descriptor string) *Method {
 		}
 	}
 	return nil
+}
+func (self *Class) GetPackageName() string {
+	if i := strings.LastIndex(self.name, "/"); i >= 0 {
+		return self.name[:i]
+	}
+	return ""
 }
