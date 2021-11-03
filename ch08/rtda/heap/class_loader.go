@@ -24,6 +24,9 @@ func (self *ClassLoader) LoadClass(name string) *Class {
 	if class, ok := self.classMap[name]; ok {
 		return class
 	}
+	if name[0] == '[' {
+		return self.loadArrayClass(name)
+	}
 	return self.loadNonArrayClass(name)
 }
 
@@ -157,4 +160,19 @@ func initStaticFinalVar(class *Class, field *Field) {
 
 		}
 	}
+}
+func (self *ClassLoader) loadArrayClass(name string) *Class {
+	class := &Class{
+		accessFlags: ACC_PUBLIC, // todo
+		name:        name,
+		loader:      self,
+		initStarted: true,
+		superClass:  self.LoadClass("java/lang/Object"),
+		interfaces: []*Class{
+			self.LoadClass("java/lang/Cloneable"),
+			self.LoadClass("java/io/Serializable"),
+		},
+	}
+	self.classMap[name] = class
+	return class
 }
