@@ -102,3 +102,6 @@ func (self *Class) GetPackageName() string {
 	}
 	return ""
 }
+func (self *Class) Name() string {
+	return self.name
+}
