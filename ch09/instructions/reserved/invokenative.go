@@ -4,6 +4,8 @@ import (
 	"jvmgo/ch09/instructions/base"
 	"jvmgo/ch09/native"
 	"jvmgo/ch09/rtda"
+
+	_ "jvmgo/ch09/native/java/lang"
 )
 
 type INVOKE_NATIVE struct{ base.NoOperandsInstruction }
