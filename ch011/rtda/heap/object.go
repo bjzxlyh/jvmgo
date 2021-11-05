@@ -37,3 +37,6 @@ func (self *Object) SetRefVar(name, descriptor string, ref *Object) {
 	slots := self.data.(Slots)
 	slots.SetRef(field.slotId, ref)
 }
+func (self *Object) Data() interface{} {
+	return self.data
+}
