@@ -18,3 +18,4 @@ func initialize(frame *rtda.Frame) { // hack: just make VM.savedProps nonempty
 	initSysClass := jlSysClass.GetStaticMethod("initializeSystemClass", "()V")
 	base.InvokeMethod(frame, initSysClass)
 }
+1
